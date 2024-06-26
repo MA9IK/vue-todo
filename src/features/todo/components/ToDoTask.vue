@@ -5,49 +5,43 @@
         type="text"
         v-model="titleInput"
         placeholder="Enter task title"
-        @input="$emit('update:title', titleInput)"
+        @input="emit('update:title', titleInput)"
       />
-      <button @click="$emit('save')">Save</button>
+      <button @click="emit('save')">Save</button>
     </div>
     <div v-else>
-      {{ title }}
-      <button class="remove-button" @click="$emit('remove', title)">
-        Remove
-      </button>
+      {{ task.title }}
+      <button class="remove-button" @click="removeTask">Remove</button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "ToDoTask",
-  props: {
-    title: {
-      type: String,
-      default: "",
-    },
-    isEditable: {
-      type: Boolean,
-      default: false,
-    },
+<script setup>
+import { ref } from "vue";
+
+// eslint-disable-next-line
+const props = defineProps({
+  task: {
+    type: Object,
+    required: true,
   },
-  data() {
-    return {
-      titleInput: this.title,
-    };
+  isEditable: {
+    type: Boolean,
+    default: false,
   },
-  watch: {
-    title(newTitle) {
-      this.titleInput = newTitle;
-    },
-  },
+});
+
+// eslint-disable-next-line
+const emit = defineEmits(["remove", "save", "update:title"]);
+
+const titleInput = ref(props.task.title);
+const removeTask = () => {
+  emit("remove", props.task);
 };
 </script>
 
 <style scoped>
 .task {
-  min-width: 300px;
-  max-width: 300px;
   background: #fff;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -56,7 +50,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  word-wrap: break-word;
 }
 
 .task input {

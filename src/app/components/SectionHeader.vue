@@ -2,16 +2,14 @@
   <h1>{{ header }}</h1>
 </template>
 
-<script>
-export default {
-  name: "SectionHeader",
-  props: {
-    header: {
-      type: String,
-      required: true,
-    },
+<script setup>
+// eslint-disable-next-line
+const props = defineProps({
+  header: {
+    type: String,
+    required: true,
   },
-};
+});
 </script>
 
 <style scoped>

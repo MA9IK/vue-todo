@@ -3,30 +3,24 @@
     <ToDoTask
       v-for="task in tasks"
       :key="task.id"
-      :title="task.title"
-      @remove="removeTask(task)"
+      :task="task"
+      :isEditable="false"
+      @remove="emit('remove-task', task)"
     />
   </div>
 </template>
 
-<script>
+<script setup>
 import ToDoTask from "./ToDoTask.vue";
-
-export default {
-  name: "TaskList",
-  components: { ToDoTask },
-  props: {
-    tasks: {
-      type: Array,
-      required: true,
-    },
+// eslint-disable-next-line
+const props = defineProps({
+  tasks: {
+    type: Array,
+    required: true,
   },
-  methods: {
-    removeTask(task) {
-      this.$emit("remove-task", task);
-    },
-  },
-};
+});
+// eslint-disable-next-line
+const emit = defineEmits(["remove-task"]);
 </script>
 
 <style scoped>
@@ -34,6 +28,7 @@ export default {
   margin-top: 20px;
   max-height: 300px;
   overflow-y: auto;
+  border: 1px solid #ddd;
   padding: 10px;
   border-radius: 4px;
   background: #f9f9f9;

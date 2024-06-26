@@ -1,17 +1,18 @@
 <template>
-  <button @click="$emit('click')">{{ label }}</button>
+  <button @click="emit('click')">{{ label }}</button>
 </template>
 
-<script>
-export default {
-  name: "ButtonComponent",
-  props: {
-    label: {
-      type: String,
-      required: true,
-    },
+<script setup>
+// eslint-disable-next-line
+const emit = defineEmits(["click"]);
+
+// eslint-disable-next-line
+const props = defineProps({
+  label: {
+    type: String,
+    required: true,
   },
-};
+});
 </script>
 
 <style scoped>
