@@ -1,17 +1,13 @@
 <template>
   <div class="new-task">
-    <ToDoTask
-      :task="newTask"
-      :isEditable="true"
-      @update:title="updateTitle"
-      @save="saveTask"
-    />
+    <CreateTaskInput @update:title="updateTitle" @save="saveTask" />
   </div>
 </template>
 
 <script setup>
-import ToDoTask from "./ToDoTask.vue";
+import CreateTaskInput from "@/shared/CreateTaskInput.vue";
 import { ref } from "vue";
+
 // eslint-disable-next-line
 const emit = defineEmits(["add-task"]);
 const newTask = ref({ id: null, title: "" });

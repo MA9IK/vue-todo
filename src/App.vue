@@ -1,12 +1,8 @@
 <template>
   <div id="app">
-    <FlexContainer />
+    <router-view></router-view>
   </div>
 </template>
-
-<script setup>
-import FlexContainer from "@/app/components/FlexContainer.vue";
-</script>
 
 <style>
 #app {

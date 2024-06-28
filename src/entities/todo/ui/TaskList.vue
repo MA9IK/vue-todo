@@ -1,17 +1,18 @@
 <template>
   <div class="tasks">
-    <ToDoTask
+    <ToDoCard
       v-for="task in tasks"
+      @remove="emit('remove-task', task)"
       :key="task.id"
       :task="task"
-      :isEditable="false"
-      @remove="emit('remove-task', task)"
     />
   </div>
 </template>
 
 <script setup>
-import ToDoTask from "./ToDoTask.vue";
+import ToDoCard from "@/shared/ToDoCard.vue";
+const { defineProps, defineEmits } = require("vue");
+
 // eslint-disable-next-line
 const props = defineProps({
   tasks: {
@@ -19,7 +20,7 @@ const props = defineProps({
     required: true,
   },
 });
-// eslint-disable-next-line
+
 const emit = defineEmits(["remove-task"]);
 </script>
 
